@@ -1,0 +1,132 @@
+
+public class BarcodeImage implements Cloneable 
+{   
+	
+	
+	//Data
+	public static final int MAX_HEIGHT = 30, MAX_WIDTH = 65;
+	private boolean[][] imageData;
+
+	
+	//Default constructor initiating 2D array with blanks
+	public BarcodeImage()
+	{
+		int row, col;
+		imageData = new boolean[MAX_HEIGHT][MAX_WIDTH];
+		for(row = 0; row < MAX_HEIGHT; row++)
+		{
+			for (col = 0; col < MAX_WIDTH; col++)
+			{
+				imageData[row][col] = false;
+			}
+		}
+	}
+	
+	
+	//Converting 1D array of strings to internal 2D array of booleans
+	public BarcodeImage (String[] strData)
+	{
+		this();
+		int row, col;
+		if(checkSize(strData))
+		{
+			for (row = 0; row < strData.length; row++)
+			{
+				for (col = 0; col < strData[row].length(); col++)
+				{
+					if (strData[row].charAt(col) == '*')
+					{
+						imageData[MAX_HEIGHT - strData.length + row][col] = true;
+					}
+				}
+			}
+		}
+	}
+	
+	
+	//Accessor for image
+	public boolean getPixel(int row, int col)
+	{
+		if (col >= MAX_WIDTH || row >= MAX_HEIGHT)
+		{
+			return false;
+		}
+		else
+		{
+			return imageData [row][col];
+		}
+	}
+	
+	
+	//Mutator for image
+	public boolean setPixel(int row, int col, boolean value)
+	{
+		if (col >= MAX_WIDTH || row >= MAX_HEIGHT)
+		{
+			return false;
+		}
+		else
+		{
+			imageData[row][col] = value;
+			return true;
+		}
+	}
+	
+	
+	/*Checks incoming data for ever conceivable size or null error. Smaller is
+	 * ok. Bigger or null is not.
+	 */
+	private boolean checkSize(String[] data)
+	{
+		int a;
+		if(MAX_HEIGHT < data.length || data == null || data.length == 0)
+			return false;
+		for (a = 0; a < data.length; ++a)
+		{
+			if (MAX_WIDTH < data[a].length() || data[a] == null)
+			{
+				return false;
+			}
+		}
+		return false;
+	}
+	
+	
+	//for debugging purposes
+   public void displayToConsole()
+   {
+   	int row, col;
+      for(row = 0; row < MAX_HEIGHT; row++)
+      {
+         for(col = 0; col < MAX_WIDTH; col++)
+         {
+            if(imageData[row][col])
+            {
+               System.out.print('*');
+            }
+            else
+            {
+               System.out.print(' ');
+            }
+         }
+         System.out.println();
+      }
+   }
+	
+   
+	//Override for clone method and moving image
+	public BarcodeImage clone() throws CloneNotSupportedException
+	{
+		int row, col;
+		BarcodeImage copiedImage = new BarcodeImage();
+		
+		for (row = 0; row < MAX_HEIGHT; ++row)
+		{
+			for (col = 0; col < MAX_WIDTH; ++col)
+			{
+				copiedImage.imageData[row][col] = this.imageData[row][col];
+			}
+		}
+		return copiedImage;
+	}
+}
