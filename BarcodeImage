@@ -1,8 +1,6 @@
-
-public class BarcodeImage implements Cloneable 
+class BarcodeImage implements Cloneable 
 {   
-	
-	
+
 	//Data
 	public static final int MAX_HEIGHT = 30, MAX_WIDTH = 65;
 	private boolean[][] imageData;
@@ -88,30 +86,30 @@ public class BarcodeImage implements Cloneable
 				return false;
 			}
 		}
-		return false;
+		return true;
 	}
 	
 	
 	//for debugging purposes
-   public void displayToConsole()
-   {
-   	int row, col;
-      for(row = 0; row < MAX_HEIGHT; row++)
-      {
-         for(col = 0; col < MAX_WIDTH; col++)
-         {
-            if(imageData[row][col])
-            {
-               System.out.print('*');
-            }
-            else
-            {
-               System.out.print(' ');
-            }
-         }
-         System.out.println();
-      }
-   }
+   	public void displayToConsole()
+   	{
+   		int row, col;
+      	for(row = 0; row < MAX_HEIGHT; row++)
+      	{
+         	for(col = 0; col < MAX_WIDTH; col++)
+         	{
+            	if(imageData[row][col])
+            	{
+               	System.out.print('*');
+            	}
+            	else
+            	{
+               	System.out.print(' ');
+            	}
+         	}
+         	System.out.println();
+      	}
+   	}
 	
    
 	//Override for clone method and moving image
