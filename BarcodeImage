@@ -101,7 +101,6 @@ class BarcodeImage implements Cloneable
    				if(imageData[row][col])
    				{
    					System.out.print('*');
-   		
    				}
    				else
    				{
