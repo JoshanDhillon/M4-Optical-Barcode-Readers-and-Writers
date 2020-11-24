@@ -77,11 +77,11 @@ class BarcodeImage implements Cloneable
 	private boolean checkSize(String[] data)
 	{
 		int a;
-		if(MAX_HEIGHT < data.length || data == null || data.length == 0)
+		if(data.length > MAX_HEIGHT || data == null || data.length == 0)
 			return false;
 		for (a = 0; a < data.length; ++a)
 		{
-			if (MAX_WIDTH < data[a].length() || data[a] == null)
+			if (data[a].length() > MAX_WIDTH || data[a] == null)
 			{
 				return false;
 			}
@@ -90,27 +90,28 @@ class BarcodeImage implements Cloneable
 	}
 	
 	
-	//for debugging purposes
+   	//for debugging purposes
    	public void displayToConsole()
    	{
    		int row, col;
-      	for(row = 0; row < MAX_HEIGHT; row++)
-      	{
-         	for(col = 0; col < MAX_WIDTH; col++)
-         	{
-            	if(imageData[row][col])
-            	{
-               	System.out.print('*');
-            	}
-            	else
-            	{
-               	System.out.print(' ');
-            	}
-         	}
-         	System.out.println();
-      	}
-   	}
-	
+   		for(row = 0; row < MAX_HEIGHT; row++)
+   		{
+   			for(col = 0; col < MAX_WIDTH; col++)
+   			{
+   				if(imageData[row][col])
+   				{
+   					System.out.print('*');
+   		
+   				}
+   				else
+   				{
+   					System.out.print(' ');
+   				}
+   			}
+   			System.out.println();
+   		}
+   	}	
+   
    
 	//Override for clone method and moving image
 	public BarcodeImage clone() throws CloneNotSupportedException
@@ -122,7 +123,7 @@ class BarcodeImage implements Cloneable
 		{
 			for (col = 0; col < MAX_WIDTH; ++col)
 			{
-				copiedImage.imageData[row][col] = this.imageData[row][col];
+				copiedImage.setPixel(row,col, imageData[row][col]);
 			}
 		}
 		return copiedImage;
